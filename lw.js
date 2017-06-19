@@ -6,7 +6,11 @@ function startSoloFight(leekId, targetId, callback) {
 }
 function autoFight(leekId) {
     getLeekOpponents(leekId, function(data) {
-        startSoloFight(leekId, data.opponents[0].id, function(data) {
+        var opponent = data.opponents[0];
+        for (var o of data.opponents) {
+            if (o.talent > opponent.talent) opponent = o;
+        }
+        startSoloFight(leekId, opponent.id, function(data) {
             console.log(data);
         });
     });
